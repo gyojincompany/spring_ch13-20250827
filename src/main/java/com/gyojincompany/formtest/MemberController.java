@@ -6,8 +6,10 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
@@ -66,7 +68,7 @@ public class MemberController {
 		return "boardlist";
 	}
 	
-	@RequestMapping(value = "/joinOk")
+	@RequestMapping(value = "/joinOk", method = RequestMethod.POST)
 	//public String joinOk(@RequestParam("mid") String mid, @RequestParam("mpw") String mpw, @RequestParam("mname") String mname, @RequestParam("mage") String mage,  Model model) {
 	public String joinOk(MemberDto memberDto,  Model model) {
 //		!MemberDto의 멤버변수와 form의 파라미터 이름이 반드시 일치!
@@ -83,7 +85,26 @@ public class MemberController {
 		return "joinOk";
 	}
 	
+	@RequestMapping(value = "/joinOk", method = RequestMethod.GET)
+	//public String joinOk(@RequestParam("mid") String mid, @RequestParam("mpw") String mpw, @RequestParam("mname") String mname, @RequestParam("mage") String mage,  Model model) {
+	public String joinOk2(MemberDto memberDto,  Model model) {
+//		!MemberDto의 멤버변수와 form의 파라미터 이름이 반드시 일치!
 	
+		
+		//MemberDto memberDto = new MemberDto(mid, mpw, mname, mage);
+		
+		model.addAttribute("memberDto", memberDto);
+		
+		return "joinOk";
+	}
+	
+	@RequestMapping(value = "/studentOk")
+	public String studentInfo(@ModelAttribute("sInfo") StudentInformationDto studentInformationDto,  Model model) {
+		
+		//model.addAttribute("studentInformationDto", studentInformationDto);
+		
+		return "studentOk";
+	}
 	
 	
 	
